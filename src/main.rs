@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use tictactoe::logic::game_state::{init_player_turn, GameState, PlayerTurn};
+use tictactoe::logic::game_state::{get_game_status, init_player_turn, GameState};
 use tictactoe::logic::logic::init_board_usage;
 use tictactoe::map::map::{draw_backgorund, draw_board, initialize_camera};
 use tictactoe::player::animate::animate_sprite;
@@ -18,6 +18,7 @@ fn main() {
                 draw_backgorund,
                 draw_board,
                 init_board_usage,
+                get_game_status,
             ),
         )
         .add_systems(Update, place_marker)
