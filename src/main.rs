@@ -20,7 +20,7 @@ fn main() {
                 init_board_usage,
             ),
         )
-        .add_systems(Update, (place_marker))
+        .add_systems(Update, place_marker)
         .add_systems(Update, animate_sprite)
         .run();
 }
