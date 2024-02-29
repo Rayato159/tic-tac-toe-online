@@ -1,12 +1,26 @@
 use bevy::prelude::*;
-use tictactoe::map::map::{draw_backgorund, draw_board};
+use tictactoe::logic::game_state::{init_player_turn, GameState, PlayerTurn};
+use tictactoe::logic::logic::init_board_usage;
+use tictactoe::map::map::{draw_backgorund, draw_board, initialize_camera};
+use tictactoe::player::animate::animate_sprite;
+use tictactoe::player::marker::place_marker;
 use tictactoe::plugins::default_plugins::get_defaults_plugins;
-use tictactoe::state::game_state::GameState;
 
 fn main() {
     App::new()
         .add_plugins(get_defaults_plugins())
         .init_resource::<State<GameState>>()
-        .add_systems(Startup, (draw_backgorund, draw_board))
+        .add_systems(
+            Startup,
+            (
+                init_player_turn,
+                initialize_camera,
+                draw_backgorund,
+                draw_board,
+                init_board_usage,
+            ),
+        )
+        .add_systems(Update, (place_marker))
+        .add_systems(Update, animate_sprite)
         .run();
 }

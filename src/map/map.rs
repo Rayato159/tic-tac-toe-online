@@ -2,6 +2,9 @@ use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
 
 use crate::settings::settings::{WINDOW_RESOLUTION, WINDOW_SIZE_FACTOR};
 
+#[derive(Component)]
+pub struct MainCamera;
+
 enum PastelPink {
     Level1,
     Level2,
@@ -18,12 +21,15 @@ fn pastel_pink(color: PastelPink) -> Color {
     }
 }
 
+pub fn initialize_camera(mut commands: Commands) {
+    commands.spawn((Camera2dBundle::default(), MainCamera));
+}
+
 pub fn draw_backgorund(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    commands.spawn(Camera2dBundle { ..default() });
     commands.spawn((MaterialMesh2dBundle {
         mesh: meshes.add(Rectangle::default()).into(),
         transform: Transform {
